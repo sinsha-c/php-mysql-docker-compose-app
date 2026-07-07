@@ -148,9 +148,8 @@ networks:
 
 - **If Port 8080 already in use:** change the host-side port mapping in `docker-compose.yml` (Here I have used `8082:80`).
 
-> Directory structure
-> <img src="screenshots/compose-demo-ls.png" width="650"/>
-
+**Directory structure**
+> <img src="screenshots/compose-demo-ls.png" width="600"/>
 
 **Key design choices:**
 - `web` builds from the local `Dockerfile`; `db` uses the official MySQL image directly.
