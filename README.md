@@ -29,7 +29,7 @@ A startup's PHP website needed to connect to a MySQL database — without the te
 
 ---
 
-## ✅ Prerequisites
+## Prerequisites
  
 - Docker Engine installed and running
 - Docker Compose v2 (`docker compose` CLI, bundled with Docker Desktop / Docker Engine 20.10+)
@@ -91,7 +91,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
  
-echo "<h1>Hello from PHP + MySQL via Docker Compose 🚀</h1>";
+echo "<h1>Hello from PHP + MySQL via Docker Compose</h1>";
 echo "<p>Successfully connected to database: " . $database . "</p>";
 ?>
 ```
@@ -151,10 +151,10 @@ networks:
     driver: bridge
 ```
 
-- **If Port 8080 already in use:** change the host-side port mapping in `docker-compose.yml` (e.g. Here I have used `8082:80`).
+- **If Port 8080 already in use:** change the host-side port mapping in `docker-compose.yml` (Here I have used `8082:80`).
 
 > Directory structure
-> <img src="screenshots/compose-demo-ls.png" width="700"/>
+> <img src="screenshots/compose-demo-ls.png" width="600"/>
 
 **Key design choices:**
 - `web` builds from the local `Dockerfile`; `db` uses the official MySQL image directly.
@@ -189,22 +189,19 @@ Both services join the same Compose-managed bridge network (`compose-demo-networ
 docker network inspect compose-demo_compose-demo-network
 ```
 
-> Output of `docker network inspect compose-demo_compose-demo-network`.
+This shows both containers are attached to the same network with IPs in the same subnet.
 > <img src="screenshots/inspect-network.png" width="700"/>
 
----
 
-> Terminal output of `docker compose ps` showing both containers `Up`.
+Terminal output of `docker compose ps` showing both containers `Up`.
 > <img src="screenshots/docker-compose-ps.png" width="700"/>
 
-----
 
-> Browser screenshot of `http://public-ip:8080` showing the success message.
+Browser screenshot of `http://public-ip:8080` showing the success message.
 > <img src="screenshots/final-output.png" width="700"/>
 
----
 
-> Terminal output of `docker compose logs db` showing MySQL ready for connections.
+Terminal output of `docker compose logs db` showing MySQL ready for connections.
 > <img src="screenshots/mysql-db-logs.png" width="700"/>
 
 ---
@@ -228,7 +225,6 @@ docker compose down -v       # also remove the persistent volume
 
 > <img src="screenshots/compose-down.png" width="700"/>
 
----
 
 ## Troubleshooting Notes
 
