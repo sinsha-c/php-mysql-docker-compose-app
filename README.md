@@ -9,13 +9,9 @@
 
 A startup's PHP website needed to connect to a MySQL database — without the team running multiple `docker run` commands by hand every time. This project packages the full stack (web + database) into a single Docker Compose file so the entire application starts, networks, and persists data with **one command**.
 
----
-
 ## Architecture Diagram
 
 <img src="screenshots/docker_compose_php_mysql_architecture.png" width="600"/>
-
----
 
 ## Tech Stack
 
@@ -27,7 +23,6 @@ A startup's PHP website needed to connect to a MySQL database — without the te
 | Networking         | Compose default bridge network |
 | Persistence        | Named Docker volume       |
 
----
 
 ## Prerequisites
  
@@ -66,8 +61,8 @@ touch .env
 **.env**
 ```
 DB_HOST=db
-DB_USER=root
-DB_PASSWORD=rootpassword
+DB_USER=<mention user name>
+DB_PASSWORD=<mention your password>
 DB_NAME=companydb
 ```
  
@@ -154,18 +149,16 @@ networks:
 - **If Port 8080 already in use:** change the host-side port mapping in `docker-compose.yml` (Here I have used `8082:80`).
 
 > Directory structure
-> <img src="screenshots/compose-demo-ls.png" width="600"/>
+> <img src="screenshots/compose-demo-ls.png" width="650"/>
+
 
 **Key design choices:**
 - `web` builds from the local `Dockerfile`; `db` uses the official MySQL image directly.
 - Port `8080` on the host maps to `80` in the container, so the app is reachable at `http://public-ip:8080`.
-- A bind mount (`./app:/var/www/html`) lets code changes reflect immediately without rebuilding.- Verify the substituted values resolved correctly before starting:
-```bash
-docker compose config
-```
+- A bind mount (`./app:/var/www/html`) lets code changes reflect immediately without rebuilding.
+- Verify the substituted values resolved correctly with `docker compose config` before starting
 - `depends_on` ensures the database container starts before the web container attempts to connect.
 - A named volume (`db-data`) persists MySQL data across container restarts.
-- Verify the substituted values resolved correctly with `docker compose config` before starting
 
 ---
 
@@ -189,22 +182,21 @@ Both services join the same Compose-managed bridge network (`compose-demo-networ
 docker network inspect compose-demo_compose-demo-network
 ```
 
-This shows both containers are attached to the same network with IPs in the same subnet.
+**This shows both containers are attached to the same network with IPs in the same subnet.**
 > <img src="screenshots/inspect-network.png" width="700"/>
 
 
-Terminal output of `docker compose ps` showing both containers `Up`.
+**Terminal output of `docker compose ps` showing both containers `Up`.**
 > <img src="screenshots/docker-compose-ps.png" width="700"/>
 
 
-Browser screenshot of `http://public-ip:8080` showing the success message.
+**Browser screenshot of `http://public-ip:8080` showing the success message.**
 > <img src="screenshots/final-output.png" width="700"/>
 
 
-Terminal output of `docker compose logs db` showing MySQL ready for connections.
+**Terminal output of `docker compose logs db` showing MySQL ready for connections.**
 > <img src="screenshots/mysql-db-logs.png" width="700"/>
 
----
 
 **Verification checklist:**
 
@@ -215,7 +207,6 @@ Terminal output of `docker compose logs db` showing MySQL ready for connections.
 | Database container healthy                      | `docker compose logs db`               | ✅ Verified |
 | PHP successfully connects to MySQL              | Page displays "Successfully connected" | ✅ Verified |
 
----
 
 **To tear down:**
 ```bash
@@ -223,8 +214,9 @@ docker compose down          # stop and remove containers
 docker compose down -v       # also remove the persistent volume
 ```
 
-> <img src="screenshots/compose-down.png" width="700"/>
+<img src="screenshots/compose-down.png" width="700"/>
 
+---
 
 ## Troubleshooting Notes
 
