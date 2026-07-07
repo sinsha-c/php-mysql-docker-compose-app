@@ -1,7 +1,5 @@
 # compose-demo: PHP + MySQL Multi-Container App with Docker Compose
 
-> Suggested GitHub repo name: `php-mysql-docker-compose-app` — the local project folder is kept as `compose-demo` per the task requirement.
-
 ![Docker Compose](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-Apache-777BB4?logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql&logoColor=white)
